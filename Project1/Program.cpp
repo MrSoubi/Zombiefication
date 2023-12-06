@@ -3,6 +3,7 @@
 
 #include <time.h>
 #include <iostream>
+#include <limits>
 
 void main() {
 	Company *player = new Company();
@@ -12,30 +13,40 @@ void main() {
 	int diceValue = 0;
 	int day = 0;
 	float totalCost = 0;
+	std::string input = "";
 
 	while (day < 28 && player->ZombieCount() < 100) {
 		for (int i = 0; i < 100; i++) {
 			rnd = rand() % 100;
 			player->employees[i].HandleInfection(rnd, player->ZombieCount());
 		}
+
 		std::cout << "Day " << day << " | Risk : " << player->ZombieCount() << "%" << std::endl;
 		day++;
 		totalCost += player->TotalDayCharge();
 
-		diceValue = rand() % 5;
-		diceValue += rand() % 5;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Waits for Enter
+
+		diceValue = 2 + rand() % 5;
+		diceValue += 2 + rand() % 5;
+
+		std::cout << "Rolled a " << diceValue << "...";
 
 		if (diceValue == 2) {
 			// Do nothing
+			std::cout << "Nothing happens !" << std::endl;
 		}
 		else if (diceValue < 7) {
 			player->ModifyEmployee(Employee::SANE, Employee::INCUBATING);
+			std::cout << "Paul might be infected..." << std::endl;
 		}
 		else if (diceValue < 12) {
 			player->ModifyEmployee(Employee::SANE, Employee::INCUBATING, 2);
+			std::cout << "Thomas and Jacques might be infected..." << std::endl;
 		}
 		else { // diceValue == 12
-			player->ModifyEmployee(Employee::SANE, Employee::ZOMBIFIED, 4);
+			player->ModifyEmployee(Employee::SANE, Employee::ZOMBIFIED, 3);
+			std::cout << "Oh sh*t ! Philippe, Jean and Judas turned to zombies !" << std::endl;
 		}
 	}
 
