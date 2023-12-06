@@ -8,15 +8,16 @@ public:
 	};
 
 	int id;
+	int incubatingTime;
 
 	Employee(int id);
 
 	bool IsZombified();
 	void HandleInfection(int rnd, int zombieCount);
 	void SetNewZombificationState(State s);
-
+	float Cost();
+	State state;
 private:
 	int daysSinceInfection;
-	State state;
 };
 

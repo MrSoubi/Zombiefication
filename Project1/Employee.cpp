@@ -18,10 +18,11 @@ void Employee::HandleInfection(int rnd, int zombieCount)
 	case SANE:
 		if (rnd <= zombieCount) {
 			SetNewZombificationState(INCUBATING);
+			incubatingTime = 2 + rnd % 3; // 'rnd' is an int between 0 and 100, so I re-use to get a random incubating time. 
 		}
 		break;
 	case INCUBATING:
-		if (daysSinceInfection >= 2) {
+		if (daysSinceInfection >= incubatingTime) {
 			SetNewZombificationState(ZOMBIFIED);
 		}
 		else {
@@ -37,4 +38,14 @@ void Employee::HandleInfection(int rnd, int zombieCount)
 void Employee::SetNewZombificationState(State s)
 {
 	this->state = s;
+}
+
+float Employee::Cost()
+{
+	if (this->state == SANE || this->state == INCUBATING) {
+		return 26000.0f;
+	}
+	else {
+		return 45000.0f;
+	}
 }

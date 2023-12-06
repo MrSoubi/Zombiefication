@@ -9,6 +9,8 @@ public:
 	std::vector<Employee> employees;
 	Company();
 
-	int zombieCount();
+	int ZombieCount();
+	float TotalDayCharge();
+	void ModifyEmployee(Employee::State fromState, Employee::State toState, int quantity = 1);
 };
 
