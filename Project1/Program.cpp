@@ -4,9 +4,11 @@
 #include <time.h>
 #include <iostream>
 #include <limits>
+#include <memory>
 
-void main() {
-	Company *player = new Company();
+
+void Play() {
+	std::unique_ptr<Company> player = std::make_unique<Company>();
 
 	srand(time(NULL));
 	int rnd = 0;
@@ -61,5 +63,13 @@ void main() {
 	else { // Not all employees are infected
 		std::cout << "It cas just a cold." << std::endl;
 	}
+
 	std::cout << "Total cost : " << totalCost << std::endl;
 }
+
+void main() {
+
+	Play();
+
+}
+

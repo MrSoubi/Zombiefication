@@ -2,6 +2,7 @@
 
 #include <vector>
 #include "Employee.h"
+#include <memory>
 
 class Company
 {
